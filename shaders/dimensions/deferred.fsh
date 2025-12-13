@@ -224,21 +224,17 @@ if (gl_FragCoord.x > pixelPos6.x && gl_FragCoord.x < pixelPos6.x + 1 && gl_FragC
 	#ifdef ambientLight_only
 		if (gl_FragCoord.x > 6. && gl_FragCoord.x < 7.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
 		gl_FragData[0] = vec4(0.0,0.0,0.0,1.0);
-
 		if (gl_FragCoord.x > 8. && gl_FragCoord.x < 9.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
 		gl_FragData[0] = vec4(0.0,0.0,0.0,1.0);
-
 		if (gl_FragCoord.x > 13. && gl_FragCoord.x < 14.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
 		gl_FragData[0] = vec4(0.0,0.0,0.0,1.0);
 	#else
 		if (gl_FragCoord.x > 6. && gl_FragCoord.x < 7.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
-		gl_FragData[0] = vec4(lightSourceColor,1.0);
+		gl_FragData[0] = vec4(mix(lightSourceColor, vec3(0.0), rainStrength),1.0);
 		if (gl_FragCoord.x > 8. && gl_FragCoord.x < 9.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
-		gl_FragData[0] = vec4(sunColor,1.0);
+		gl_FragData[0] = vec4(mix(sunColor, vec3(0.0), rainStrength), 1.0);
 		if (gl_FragCoord.x > 9. && gl_FragCoord.x < 10.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
-		gl_FragData[0] = vec4(moonColor,1.0);
-		// if (gl_FragCoord.x > 16. && gl_FragCoord.x < 17.  && gl_FragCoord.y > 19.+18. && gl_FragCoord.y < 19.+18.+1 )
-		// gl_FragData[0] = vec4(rayleighAborbance,1.0);
+		gl_FragData[0] = vec4(mix(moonColor, vec3(0.0), rainStrength), 1.0);
 	#endif
 	
 
@@ -261,7 +257,7 @@ if (gl_FragCoord.x > 18. && gl_FragCoord.y > 1. && gl_FragCoord.x < 18+257){
 
 	// fade atmosphere conditions for rain away when you pass above the cloud plane.
 	float heightRelativeToClouds = clamp(1.0 - max(eyeAltitude - CloudLayer0_height,0.0) / 200.0 ,0.0,1.0);
-	if(rainStrength > 0.0) sky = mix(sky, averageSkyCol*4000 * (skyAbsorb*0.7+0.3), clamp(1.0 - exp(pow(clamp(-viewVector.y+0.9,0.0,1.0),2) * -5.0),0.0,1.0) * heightRelativeToClouds * rainStrength);
+	if(rainStrength > 0.0) sky = mix(sky, 3.0 + averageSkyCol*4000 * (skyAbsorb*0.7+0.3), clamp(1.0 - exp(pow(clamp(-viewVector.y+0.9,0.0,1.0),2) * -5.0),0.0,1.0) * heightRelativeToClouds * rainStrength);
 	
 	#ifdef AEROCHROME_MODE
 		sky *= vec3(0.0, 0.18, 0.35);
@@ -280,7 +276,7 @@ if (gl_FragCoord.x > 18.+257. && gl_FragCoord.y > 1. && gl_FragCoord.x < 18+257+
 	vec3 sky = texelFetch2D(colortex4,ivec2(gl_FragCoord.xy)-ivec2(257,0),0).rgb/150.0;	
 	sky = mix(dot(sky, vec3(0.333)) * vec3(0.5), sky,  pow(clamp(viewVector.y+1.0,0.0,1.0),5));
 	
-	vec3 suncol = lightSourceColor;
+	vec3 suncol = mix(lightSourceColor, vec3(0.0), rainStrength);
 	#ifdef ambientLight_only
 		suncol = vec3(0.0);
 	#endif

@@ -242,8 +242,6 @@ void main() {
 
 	#ifdef DISTANT_HORIZONS
     float DH_depth0 = texture2D(dhDepthTex,texcoord).x;
-    float DH_depth1 = texture2D(dhDepthTex1,texcoord).x;
-
 		float depthOpaque = z;
 		float depthOpaqueL = linearizeDepthFast(depthOpaque, near, farPlane);
 		
@@ -258,7 +256,6 @@ void main() {
 
 	#else
 		float DH_depth0 = 0.0;
-    float DH_depth1 = 0.0;
 	#endif
 
 	vec3 fragpos = toScreenSpace_DH(texcoord/RENDER_SCALE-vec2(TAA_Offset)*texelSize*0.5, z, DH_depth0);
@@ -269,6 +266,11 @@ void main() {
 
   float linearDistance = length(p3);
   float linearDistance_cylinder = length(p3.xz);
+  
+	// vec3 fragpos_NODH = toScreenSpace(texcoord/RENDER_SCALE-vec2(TAA_Offset)*texelSize*0.5, z);
+  
+  // float linearDistance_NODH = length(p3);
+
 
 	float lightleakfix = clamp(pow(eyeBrightnessSmooth.y/240.,2) ,0.0,1.0);
 	float lightleakfixfast = clamp(eyeBrightness.y/240.,0.0,1.0);
@@ -278,8 +280,8 @@ void main() {
 	// bool isOpaque_entity = abs(opaqueMasks-0.45) < 0.01;
 
 	////// --------------- UNPACK TRANSLUCENT GBUFFERS --------------- //////
-	vec4 data = texelFetch2D(colortex11,ivec2(gl_FragCoord.xy),0);
-	vec4 unpack0 = vec4(decodeVec2(data.r),decodeVec2(data.g));
+	vec4 data = texture2D(colortex11,texcoord).rgba;
+	vec4 unpack0 = vec4(decodeVec2(data.r),decodeVec2(data.g)) ;
 	vec4 unpack1 = vec4(decodeVec2(data.b),0,0) ;
 	
 	vec4 albedo = vec4(unpack0.ba,unpack1.rg);
@@ -327,36 +329,36 @@ void main() {
   ////// --------------- MAIN COLOR BUFFER
   vec3 color = texture2D(colortex3, refractedCoord).rgb;
 
-  // #if defined BorderFog && defined OVERWORLD_SHADER
-    
-  //   #ifdef DISTANT_HORIZONS
-  //   	float fog = smoothstep(1.0, 0.0, min(max(1.0 - linearDistance_cylinder / dhRenderDistance,0.0)*3.0,1.0)   );
-  //   #else
-  //   	float fog = smoothstep(1.0, 0.0, min(max(1.0 - linearDistance_cylinder / far,0.0)*3.0,1.0)   );
-  //   #endif
-
-  //   fog *= exp(-10.0 * pow(clamp(np3.y,0.0,1.0)*4.0,2.0));
-
-  //   fog *= (1.0-caveDetection);
-
-  //   if(swappedDepth >= 1.0 || isEyeInWater != 0) fog = 0.0;
-
-  //   #ifdef SKY_GROUND
-  //     vec3 borderFogColor = skyGroundColor;
-  //   #else
-  //     vec3 borderFogColor = skyFromTex(np3, colortex4)/30.0;
-  //   #endif
-
-  //   color.rgb = mix(color.rgb, borderFogColor, fog);
-  // #else
-    float fog = 0.0;
-  // #endif
-
-  ////// --------------- BLEND TRANSLUCENT GBUFFERS 
-  //////////// and do border fog on opaque and translucents
   // apply block breaking effect.
   if(albedo.a > 0.01 && !isWater && TranslucentShader.a <= 0.0 && !isEntity) color = mix(color*6.0, color, luma(albedo.rgb)) * albedo.rgb;
 
+  ////// --------------- BLEND TRANSLUCENT GBUFFERS 
+  //////////// and do border fog on opaque and translucents
+
+  #if defined BorderFog
+    #ifdef DISTANT_HORIZONS
+    	float fog = smoothstep(1.0, 0.0, min(max(1.0 - linearDistance_cylinder / dhRenderDistance,0.0)*3.0,1.0)   );
+    #else
+    	float fog = smoothstep(1.0, 0.0, min(max(1.0 - linearDistance_cylinder / far,0.0)*3.0,1.0)   );
+    #endif
+
+    fog *= exp(-10.0 * pow(clamp(np3.y,0.0,1.0)*4.0,2.0));
+
+    fog *= (1.0-caveDetection);
+
+    if(swappedDepth >= 1.0 || isEyeInWater != 0) fog = 0.0;
+
+    #ifdef SKY_GROUND
+      vec3 borderFogColor = skyGroundColor;
+    #else
+      vec3 borderFogColor = skyFromTex(np3, colortex4)/30.0;
+    #endif
+
+    color.rgb = mix(color.rgb, borderFogColor, fog);
+  #else
+    float fog = 0.0;
+  #endif
+	
   if (TranslucentShader.a > 0.0){
     #ifdef Glass_Tint
       if(!isWater) color *= mix(normalize(albedo.rgb+0.0001)*0.9+0.1, vec3(1.0), max(fog, min(max(0.1-albedo.a,0.0) * 1000.0,1.0))) ;
@@ -385,12 +387,9 @@ void main() {
       cavefogCol *= 1.0-pow(1.0-pow(1.0 - max(1.0 - linearDistance/far,0.0),2.0),CaveFogFallOff);
       cavefogCol *= exp(-7.0*clamp(normalize(np3).y*0.5+0.5,0.0,1.0)) * 0.999 + 0.001;
 
-      #ifdef CAVE_FOG_DARKEN_SKY 
-  	    float skyhole = pow(clamp(1.0-pow(max(np3.y - 0.6,0.0)*5.0,2.0),0.0,1.0),2);
-        color.rgb = mix(color.rgb + cavefogCol * caveDetection, cavefogCol, z >= 1.0 ? skyhole * caveDetection : 0.0);
-      #else
-        color.rgb += cavefogCol * caveDetection;
-      #endif
+  	  float skyhole = pow(clamp(1.0-pow(max(np3.y - 0.6,0.0)*5.0,2.0),0.0,1.0),2);
+
+      color.rgb = mix(color.rgb + cavefogCol * caveDetection, cavefogCol, z >= 1.0 ? skyhole * caveDetection : 0.0);
     }
 #endif
 

@@ -1,11 +1,11 @@
-profile.SHADER_VERSION_LABEL = Bliss V2.1.2
-profile.OLD_BLISS_TONEMAP = Bliss V2.1.2 + v2.0.4 Color Processing
+option.SHADER_VERSION_LABEL = Bliss HMK Version
+    prefix.SHADER_VERSION_LABEL = COMMIT #
 
 # if you're here to translate, this is a joke, these don't do what they say
 profile.QUALITY=Quality
 profile.PERFORMANCE=Performance
 
-screen.Misc_Settings = §cDebugging§r/Experimental Settings
+screen.Misc_Settings = §cDebugging§r/§cExperimental§r Settings
 screen.Sun_and_Moon_Colors = Sun/Moon Colors
 option.sunPathRotation = Sun Angle
 option.sun_illuminance = Sun Illuminance
@@ -130,10 +130,9 @@ screen.Subsurface_Scattering = Sub-Surface Scattering
 screen.Ambient_light = Ambient Light
     option.AO_Strength = AO Multiplier
     option.GI_Strength = GI Multiplier
-    option.HQ_SSGI = Long Range Marching (SSRT)
-    option.UseQuarterResDepth = sample 1/4 resolution depth (SSRT)
+    option.HQ_SSGI = Long Range SSGI
     option.Hand_Held_lights = Hand Held Light
-    option.SKY_CONTRIBUTION_IN_SSRT = High Quality Ambient Light (SSRT)
+    option.SKY_CONTRIBUTION_IN_SSRT = High Quality Ambient Light
     option.ambientOcclusionLevel = Vanilla AO Amount
     option.ambient_brightness = Ambient Light Brightness
     option.MIN_LIGHT_AMOUNT = Minimum Light Brightness
@@ -141,8 +140,8 @@ screen.Ambient_light = Ambient Light
         value.indirect_effect.0 = Vanilla AO
             value.indirect_effect.1 = SSAO
             value.indirect_effect.2 = GTAO
-            value.indirect_effect.3 = SSRT (AO only) - §cLOTS OF VISUAL NOISE§r
-            value.indirect_effect.4 = SSRT (AO + GI) - §cLOTS OF VISUAL NOISE§r
+            value.indirect_effect.3 = RTAO
+            value.indirect_effect.4 = SSGI
 
     screen.Ambient_Colors =  Ambient Light Color
         option.AmbientLight_R = Red Amount
@@ -382,6 +381,14 @@ screen.Climate = Climate Settings
         option.DARKFOREST_R = Red Amount
         option.DARKFOREST_G = Green Amount
         option.DARKFOREST_B = Blue Amount
+
+    screen.CHERRY = Cherry Forest
+        option.CHERRY_ENV = Cherry Forest Environment
+        option.CHERRY_UNIFORM_DENSITY = Uniform Fog Density
+        option.CHERRY_CLOUDY_DENSITY = Cloudy Fog Density
+        option.CHERRY_R = Red Amount
+        option.CHERRY_G = Green Amount
+        option.CHERRY_B = Blue Amount
 
 screen.World = World
     screen.Water = Water Settings
@@ -654,6 +661,9 @@ screen.Climate.comment = Configure settings related to the climate, like seasona
 
         screen.DARKFOREST.comment = Configure the environment in this biome type.
             option.DARKFOREST_ENV.comment = Toggle the environment only for this biome type. The other biome environments remain active even if this one is disabled.
+
+        screen.CHERRY.comment = Configure the environment in this biome type.
+            option.CHERRY_ENV.comment = Toggle the environment only for this biome type. The other biome environments remain active even if this one is disabled.
 
 
 screen.Waving_Stuff.comment = Configure settings related to waving things.

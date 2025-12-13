@@ -29,7 +29,6 @@ const bool colortex5MipmapEnabled = true;
 	#endif
 
 	flat varying vec3 averageSkyCol_Clouds;
-	flat varying vec3 averageSkyCol;
 	flat varying vec4 lightCol;
 
 	#if Sun_specular_Strength != 0
@@ -797,7 +796,7 @@ void main() {
 
 	////// --------------- UNPACK OPAQUE GBUFFERS --------------- //////
 	
-		vec4 data = texelFetch2D(colortex1,ivec2(gl_FragCoord.xy),0);
+		vec4 data = texture2D(colortex1,texcoord);
 
 		vec4 dataUnpacked0 = vec4(decodeVec2(data.x),decodeVec2(data.y)); // albedo, masks
 		vec4 dataUnpacked1 = vec4(decodeVec2(data.z),decodeVec2(data.w)); // normals, lightmaps
@@ -928,9 +927,11 @@ void main() {
 	////////////////////////////////////////////////////////////////////////////////////////////
 	if (swappedDepth >= 1.0) {
 		vec3 Background = vec3(0.0);
-		float atmosphereGround = 1.0 - exp2(-50.0 * pow(clamp(feetPlayerPos_normalized.y+0.025,0.0,1.0),2.0)  ); // darken the ground in the sky.
-		
-		#ifdef OVERWORLD_SHADER	
+
+		#ifdef OVERWORLD_SHADER
+
+			float atmosphereGround = 1.0 - exp2(-50.0 * pow(clamp(feetPlayerPos_normalized.y+0.025,0.0,1.0),2.0)  ); // darken the ground in the sky.
+			
 			#if RESOURCEPACK_SKY == 1 || RESOURCEPACK_SKY == 0 || RESOURCEPACK_SKY == 3
 				// vec3 orbitstar = vec3(feetPlayerPos_normalized.x,abs(feetPlayerPos_normalized.y),feetPlayerPos_normalized.z); orbitstar.x -= WsunVec.x*0.2;
 				vec3 orbitstar = normalize(mat3(gbufferModelViewInverse) * toScreenSpace(vec3(texcoord/RENDER_SCALE,1.0)));
@@ -940,7 +941,11 @@ void main() {
 				
 				orbitstar.xy *= rotationMatrix;
 
-				Background += stars(orbitstar) * 10.0 * clamp(-unsigned_WsunVec.y*2.0,0.0,1.0);
+				#if defined OVERWORLD_SHADER && defined TWILIGHT_FOREST_FLAG
+					Background += stars(orbitstar) * 100.0;
+  				#else
+					Background += stars(orbitstar) * 10.0 * clamp(-unsigned_WsunVec.y*2.0,0.0,1.0);
+				#endif
 
 				#if !defined ambientLight_only && (RESOURCEPACK_SKY == 1 || RESOURCEPACK_SKY == 0)
 					Background += drawSun(dot(lightCol.a * WsunVec, feetPlayerPos_normalized),0, DirectLightColor,vec3(0.0));
@@ -1082,11 +1087,7 @@ void main() {
 	}
 
 	#ifdef END_SHADER
-		#ifdef END_LIGHTNING
-			float vortexBounds = clamp(vortexBoundRange - length(feetPlayerPos+cameraPosition), 0.0,1.0);
-		#else
-			float vortexBounds = 1.0;
-		#endif
+		float vortexBounds = clamp(vortexBoundRange - length(feetPlayerPos+cameraPosition), 0.0,1.0);
         vec3 lightPos = LightSourcePosition(feetPlayerPos+cameraPosition, cameraPosition,vortexBounds);
 
 		float lightningflash = texelFetch2D(colortex4,ivec2(1,1),0).x/150.0;
@@ -1301,26 +1302,6 @@ void main() {
 
 		gl_FragData[0].rgb *= Absorbtion;
 	}
-
-  	#if defined BorderFog && defined OVERWORLD_SHADER
-  	  #ifdef DISTANT_HORIZONS
-  	  	float fog = smoothstep(1.0, 0.0, min(max(1.0 - length(feetPlayerPos) / dhRenderDistance,0.0)*3.0,1.0)   );
-  	  #else
-  	  	float fog = smoothstep(1.0, 0.0, min(max(1.0 - length(feetPlayerPos) / far,0.0)*3.0,1.0)   );
-  	  #endif
-
-  	  fog *= exp(-10.0 * pow(clamp(feetPlayerPos_normalized.y,0.0,1.0)*4.0,2.0));
-
-  	  if(swappedDepth >= 1.0 || isEyeInWater != 0) fog = 0.0;
-
-  	  #ifdef SKY_GROUND
-  	    vec3 borderFogColor = averageSkyCol;
-  	  #else
-  	    vec3 borderFogColor = skyFromTex(feetPlayerPos_normalized, colortex4)/30.0;
-  	  #endif
-
-  	  gl_FragData[0].rgb = mix(gl_FragData[0].rgb, borderFogColor, fog);
-  	#endif
 
 	if(translucentMasks > 0.0){
 		#ifdef DISTANT_HORIZONS

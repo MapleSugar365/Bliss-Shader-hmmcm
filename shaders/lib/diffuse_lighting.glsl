@@ -35,13 +35,13 @@ vec3 doBlockLightLighting(
         vec3 lpvBlockLight = GetLpvBlockLight(lpvSample);
 
         // create a smooth falloff at the edges of the voxel volume.
-        float fadeLength = 10.0; // in meters
-        vec3 cubicRadius = clamp( min(((LpvSize3-1.0) - lpvPos)/fadeLength,      lpvPos/fadeLength) ,0.0,1.0);
-        float voxelRangeFalloff = cubicRadius.x*cubicRadius.y*cubicRadius.z;
-        voxelRangeFalloff = 1.0 - pow(1.0-pow(voxelRangeFalloff,1.5),3.0);
+        // float fadeLength = 10.0; // in meters
+        // vec3 cubicRadius = clamp( min(((LpvSize3-1.0) - lpvPos)/fadeLength, lpvPos/fadeLength) ,0.0,1.0);
+        // float voxelRangeFalloff = cubicRadius.x*cubicRadius.y*cubicRadius.z;
+        // voxelRangeFalloff = 1.0 - pow(1.0-pow(voxelRangeFalloff,1.5),3.0);
         
         // outside the voxel volume, lerp to vanilla lighting as a fallback
-        blockLight = mix(blockLight, lpvBlockLight/5.0, voxelRangeFalloff);
+        blockLight = mix(blockLight, lpvBlockLight/3.0, 0.7);
 
         #ifdef Hand_Held_lights
             // create handheld lightsources

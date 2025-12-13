@@ -410,10 +410,10 @@ void main() {
 
 	if(LIGHTNING > 0) Albedo = vec4(1);
 
-	// float ENDPORTAL_EFFECT = 0.0;
-	// #ifndef ENTITIES
-	// 	ENDPORTAL_EFFECT = PORTAL > 0 ? EndPortalEffect(Albedo, fragpos, worldpos, tbnMatrix) : 0;
-	// #endif
+	float ENDPORTAL_EFFECT = 0.0;
+	#ifndef ENTITIES
+		ENDPORTAL_EFFECT = PORTAL > 0 ? EndPortalEffect(Albedo, fragpos, worldpos, tbnMatrix) : 0;
+	#endif
 	
 	#ifdef WhiteWorld
 		Albedo.rgb = vec3(0.5);

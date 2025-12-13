@@ -43,13 +43,13 @@ vec4 GetVolumetricFog(
 
 	/// -------------  RAYMARCHING STUFF ------------- \\\
 
-	int SAMPLECOUNT = 16;
+	int SAMPLECOUNT = 10;
 
 	vec3 wpos = mat3(gbufferModelViewInverse) * viewPosition + gbufferModelViewInverse[3].xyz;
 	vec3 dVWorld = (wpos-gbufferModelViewInverse[3].xyz);
 	vec3 progressW = vec3(0.0);
 
-	float maxLength = min(length(dVWorld), min(far, 12*16))/length(dVWorld);
+	float maxLength = min(length(dVWorld), far)/length(dVWorld);
 
 	dVWorld *= maxLength;
 
@@ -75,14 +75,12 @@ vec4 GetVolumetricFog(
 		progressW = gbufferModelViewInverse[3].xyz + cameraPosition + d*dVWorld;
 
 		float densityVol = cloudVol(progressW);
-		float clearArea = 1.0 - min(max(1.0 - length(progressW - cameraPosition) / 24.0,0.0),1.0);
 
 		//------ PLUME EFFECT
-			float plumeDensity = min(densityVol * pow(min(max(100.0-progressW.y,0.0)/30.0,1.0),4.0), pow(clamp(1.0 - length(progressW-cameraPosition)/far,0.0,1.0),5.0));
-			plumeDensity *= NETHER_PLUME_DENSITY;
+			float plumeDensity = min(densityVol * pow(min(max(100.0-progressW.y,0.0)/30.0,1.0),4.0), pow(clamp(1.0 - length(progressW-cameraPosition)/far,0.0,1.0),5.0) * NETHER_PLUME_DENSITY);
 			float plumeVolumeCoeff = exp(-plumeDensity*dd*dL);
 
-			vec3 lighting = vec3(1.0,0.4,0.2) * exp(-15.0*densityVol) * (clearArea*clearArea*0.9+0.1);
+			vec3 lighting = vec3(1.0,0.4,0.2) * exp(-15.0*densityVol);
 
 			color += (lighting - lighting * plumeVolumeCoeff) * absorbance;
 			absorbance *= plumeVolumeCoeff;
@@ -90,9 +88,6 @@ vec4 GetVolumetricFog(
 		//------ HAZE EFFECT
 			// dont make haze contrube to absorbance.
 			float hazeDensity = 0.001;
-			#ifndef ReflectedFog
-				hazeDensity *= NETHER_HAZE_DENSITY;
-			#endif
 			float hazeVolumeCoeff = exp(-hazeDensity*dd*dL);
 			
 			vec3 hazeLighting = hazeColor;
@@ -101,7 +96,6 @@ vec4 GetVolumetricFog(
 
 		//------ CEILING SMOKE EFFECT
 			float ceilingSmokeDensity = 0.001 * pow(min(max(progressW.y-40.0,0.0)/50.0,1.0),3.0);
-			ceilingSmokeDensity *= NETHER_CEILING_SMOKE_DENSITY;
 			float ceilingSmokeVolumeCoeff = exp(-ceilingSmokeDensity*dd*dL);
 			
 			vec3 ceilingSmoke = vec3(1.0);

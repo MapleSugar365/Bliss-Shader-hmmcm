@@ -12,6 +12,7 @@ Credit to the creators of code contributions, various code uses,  or code snippe
 	Sasha / https://github.com/WoMspace
 	SixthSurge / https://github.com/sixthsurge
 	Zombye / https://github.com/zombye
+	MapleSugar365 / https://github.com/MapleSugar365
 
 
 
@@ -22,6 +23,7 @@ Credit to the translators:
 	YurgenS / yurgens (discord)
 	CReepa / _CReepa_ (discord)
 	Mpustovoi / https://github.com/mpustovoi
+	MapleSugar365 / https://github.com/MapleSugar365
 
 
 

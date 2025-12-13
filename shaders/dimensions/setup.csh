@@ -9,9 +9,9 @@ const ivec3 workGroups = ivec3(6, 6, 1);
     #include "/lib/lpv_blocks.glsl"
 
     const vec3 LightColor_Amethyst = vec3(0.464, 0.227, 0.788);
-    const vec3 LightColor_Candles = vec3(1.0, 0.4, 0.1);
-    const vec3 LightColor_CopperBulb = vec3(1.0);
-    const vec3 LightColor_LightBlock = vec3(1.0);
+    const vec3 LightColor_Candles = vec3(TORCH_R, TORCH_G, TORCH_B);
+    const vec3 LightColor_CopperBulb = vec3(1.0, 0.6, 0.1);
+    const vec3 LightColor_LightBlock = vec3(TORCH_R, TORCH_G, TORCH_B);
     const vec3 LightColor_RedstoneTorch = vec3(0.939, 0.305, 0.164);
     const vec3 LightColor_SeaPickle = vec3(0.283, 0.394, 0.212);
 
@@ -29,7 +29,7 @@ const ivec3 workGroups = ivec3(6, 6, 1);
     const vec3 LightColor_Candles_Pink = vec3(1.000, 0.553, 0.718);
     const vec3 LightColor_Candles_Purple = vec3(0.569, 0.000, 1.000);
     const vec3 LightColor_Candles_Red = vec3(0.859, 0.000, 0.000);
-    const vec3 LightColor_Candles_White = vec3(1.000);
+    const vec3 LightColor_Candles_White = vec3(1.0, 0.8, 0.8);
     const vec3 LightColor_Candles_Yellow = vec3(1.000, 0.878, 0.000);
 
     uint BuildLpvMask(const in uint north, const in uint east, const in uint south, const in uint west, const in uint up, const in uint down) {
@@ -128,291 +128,291 @@ void main() {
                 switch (blockId) {
                     case BLOCK_CANDLES_PLAIN_LIT_1:
                         lightColor = LightColor_Candles;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_PLAIN_LIT_2:
                         lightColor = LightColor_Candles;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_PLAIN_LIT_3:
                         lightColor = LightColor_Candles;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_PLAIN_LIT_4:
                         lightColor = LightColor_Candles;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_BLACK_LIT_1:
                         lightColor = LightColor_Candles_Black;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_BLACK_LIT_2:
                         lightColor = LightColor_Candles_Black;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_BLACK_LIT_3:
                         lightColor = LightColor_Candles_Black;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_BLACK_LIT_4:
                         lightColor = LightColor_Candles_Black;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_BLUE_LIT_1:
                         lightColor = LightColor_Candles_Blue;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_BLUE_LIT_2:
                         lightColor = LightColor_Candles_Blue;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_BLUE_LIT_3:
                         lightColor = LightColor_Candles_Blue;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_BLUE_LIT_4:
                         lightColor = LightColor_Candles_Blue;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_BROWN_LIT_1:
                         lightColor = LightColor_Candles_Brown;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_BROWN_LIT_2:
                         lightColor = LightColor_Candles_Brown;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_BROWN_LIT_3:
                         lightColor = LightColor_Candles_Brown;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_BROWN_LIT_4:
                         lightColor = LightColor_Candles_Brown;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_CYAN_LIT_1:
                         lightColor = LightColor_Candles_Cyan;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_CYAN_LIT_2:
                         lightColor = LightColor_Candles_Cyan;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_CYAN_LIT_3:
                         lightColor = LightColor_Candles_Cyan;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_CYAN_LIT_4:
                         lightColor = LightColor_Candles_Cyan;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_GRAY_LIT_1:
                         lightColor = LightColor_Candles_Gray;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_GRAY_LIT_2:
                         lightColor = LightColor_Candles_Gray;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_GRAY_LIT_3:
                         lightColor = LightColor_Candles_Gray;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_GRAY_LIT_4:
                         lightColor = LightColor_Candles_Gray;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_GREEN_LIT_1:
                         lightColor = LightColor_Candles_Green;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_GREEN_LIT_2:
                         lightColor = LightColor_Candles_Green;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_GREEN_LIT_3:
                         lightColor = LightColor_Candles_Green;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_GREEN_LIT_4:
                         lightColor = LightColor_Candles_Green;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_LIGHT_BLUE_LIT_1:
                         lightColor = LightColor_Candles_LightBlue;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_LIGHT_BLUE_LIT_2:
                         lightColor = LightColor_Candles_LightBlue;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_LIGHT_BLUE_LIT_3:
                         lightColor = LightColor_Candles_LightBlue;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_LIGHT_BLUE_LIT_4:
                         lightColor = LightColor_Candles_LightBlue;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_LIGHT_GRAY_LIT_1:
                         lightColor = LightColor_Candles_LightGray;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_LIGHT_GRAY_LIT_2:
                         lightColor = LightColor_Candles_LightGray;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_LIGHT_GRAY_LIT_3:
                         lightColor = LightColor_Candles_LightGray;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_LIGHT_GRAY_LIT_4:
                         lightColor = LightColor_Candles_LightGray;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_LIME_LIT_1:
                         lightColor = LightColor_Candles_Lime;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_LIME_LIT_2:
                         lightColor = LightColor_Candles_Lime;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_LIME_LIT_3:
                         lightColor = LightColor_Candles_Lime;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_LIME_LIT_4:
                         lightColor = LightColor_Candles_Lime;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_MAGENTA_LIT_1:
                         lightColor = LightColor_Candles_Magenta;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_MAGENTA_LIT_2:
                         lightColor = LightColor_Candles_Magenta;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_MAGENTA_LIT_3:
                         lightColor = LightColor_Candles_Magenta;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_MAGENTA_LIT_4:
                         lightColor = LightColor_Candles_Magenta;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_ORANGE_LIT_1:
                         lightColor = LightColor_Candles_Orange;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_ORANGE_LIT_2:
                         lightColor = LightColor_Candles_Orange;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_ORANGE_LIT_3:
                         lightColor = LightColor_Candles_Orange;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_ORANGE_LIT_4:
                         lightColor = LightColor_Candles_Orange;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_PINK_LIT_1:
                         lightColor = LightColor_Candles_Pink;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_PINK_LIT_2:
                         lightColor = LightColor_Candles_Pink;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_PINK_LIT_3:
                         lightColor = LightColor_Candles_Pink;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_PINK_LIT_4:
                         lightColor = LightColor_Candles_Pink;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_PURPLE_LIT_1:
                         lightColor = LightColor_Candles_Purple;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_PURPLE_LIT_2:
                         lightColor = LightColor_Candles_Purple;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_PURPLE_LIT_3:
                         lightColor = LightColor_Candles_Purple;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_PURPLE_LIT_4:
                         lightColor = LightColor_Candles_Purple;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_RED_LIT_1:
                         lightColor = LightColor_Candles_Red;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_RED_LIT_2:
                         lightColor = LightColor_Candles_Red;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_RED_LIT_3:
                         lightColor = LightColor_Candles_Red;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_RED_LIT_4:
                         lightColor = LightColor_Candles_Red;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_WHITE_LIT_1:
                         lightColor = LightColor_Candles_White;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_WHITE_LIT_2:
                         lightColor = LightColor_Candles_White;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_WHITE_LIT_3:
                         lightColor = LightColor_Candles_White;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_WHITE_LIT_4:
                         lightColor = LightColor_Candles_White;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
 
                     case BLOCK_CANDLES_YELLOW_LIT_1:
                         lightColor = LightColor_Candles_Yellow;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_YELLOW_LIT_2:
                         lightColor = LightColor_Candles_Yellow;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_YELLOW_LIT_3:
                         lightColor = LightColor_Candles_Yellow;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_YELLOW_LIT_4:
                         lightColor = LightColor_Candles_Yellow;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
                 }
         #else
@@ -420,19 +420,19 @@ void main() {
                 switch (blockId) {
                     case BLOCK_CANDLES_LIT_1:
                         lightColor = LightColor_Candles;
-                        lightRange = 3.0;
+                        lightRange = 10.0;
                         break;
                     case BLOCK_CANDLES_LIT_2:
                         lightColor = LightColor_Candles;
-                        lightRange = 6.0;
+                        lightRange = 12.0;
                         break;
                     case BLOCK_CANDLES_LIT_3:
                         lightColor = LightColor_Candles;
-                        lightRange = 9.0;
+                        lightRange = 13.0;
                         break;
                     case BLOCK_CANDLES_LIT_4:
                         lightColor = LightColor_Candles;
-                        lightRange = 12.0;
+                        lightRange = 15.0;
                         break;
                 }
         #endif
@@ -444,8 +444,8 @@ void main() {
             // TODO
         }
 
-        if (blockId == BLOCK_CAVE_VINE_BERRIES || blockId == ITEM_GLOW_BERRIES) {
-            lightColor = vec3(1.0, 1.0, 0.5);
+        if (blockId == BLOCK_CAVE_VINE_BERRIES) {
+            lightColor = vec3(1.0, 0.65, 0.1);
             
             lightRange = 14.0;
             mixWeight = 1.0;
@@ -491,9 +491,14 @@ void main() {
             lightRange = 15.0;
         }
 
-        if (blockId == BLOCK_END_ROD || blockId == ITEM_END_ROD) {
-            lightColor = vec3(0.957, 0.929, 0.875);
-            lightRange = 14.0;
+        if (blockId == ITEM_END_ROD) {
+            lightColor = vec3(0.957, 0.829, 0.875);
+            lightRange = 8.0;
+        }
+
+        if (blockId == BLOCK_END_ROD) {
+            lightColor = vec3(0.957, 0.829, 0.875);
+            lightRange = 12.0;
         }
 
         if (blockId == BLOCK_FIRE) {
@@ -524,7 +529,7 @@ void main() {
         }
 
         if (blockId == BLOCK_FURNACE_LIT) {
-            lightColor = vec3(0.8, 0.7, 0.1);
+            lightColor = vec3(TORCH_R, TORCH_G, TORCH_B);
             lightRange = 13.0;
         }
 
@@ -766,15 +771,14 @@ void main() {
             blockId == BLOCK_SOUL_LANTERN || blockId == ITEM_SOUL_LANTERN
         ) {
             lightColor = vec3(0.1, 0.6, 1.0);
-            lightRange = 10.0;
+            lightRange = 12.0;
             mixWeight = 0.8;
         }
 
-        if (blockId == BLOCK_TORCH || blockId == ITEM_TORCH ||
-            blockId == BLOCK_LANTERN || blockId == ITEM_LANTERN
+        if (blockId == BLOCK_TORCH || blockId == BLOCK_LANTERN || blockId == ITEM_TORCH || blockId == ITEM_LANTERN
         ) {
             lightColor = vec3(TORCH_R, TORCH_G, TORCH_B);
-            lightRange = 14.0;
+            lightRange = 15.0;
             mixWeight = 0.8;
         }
 
