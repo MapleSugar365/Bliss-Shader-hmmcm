@@ -382,8 +382,8 @@ screen.Climate = 气候
         option.DARKFOREST_G = 绿色比重
         option.DARKFOREST_B = 蓝色比重
 
-    screen.CHERRY = 樱花林
-        option.CHERRY_ENV = 樱花林环境
+    screen.CHERRY = 樱花树林
+        option.CHERRY_ENV = 樱花树林环境
         option.CHERRY_UNIFORM_DENSITY = 均匀雾气密度
         option.CHERRY_CLOUDY_DENSITY = 云雾密度
         option.CHERRY_R = 红色比重
