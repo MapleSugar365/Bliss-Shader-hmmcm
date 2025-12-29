@@ -1,5 +1,5 @@
 option.SHADER_VERSION_LABEL = Bliss 幻梦编织版本
-    prefix.SHADER_VERSION_LABEL = COMMIT #
+    prefix.SHADER_VERSION_LABEL = Release 
 
 # if you're here to translate, this is a joke, these don't do what they say
 profile.QUALITY=质量
@@ -14,10 +14,10 @@ option.MOONPHASE_BASED_MOONLIGHT = 月相亮度水平
 
 screen.Mod_support = 模组支持设置
 
-option.RESOURCEPACK_SKY = 资源包天空
+option.RESOURCEPACK_SKY = 资源包天空/日月
     value.RESOURCEPACK_SKY.0 = 不使用
-    value.RESOURCEPACK_SKY.1 = 天空 + 光影日月
-    value.RESOURCEPACK_SKY.2 = 完整
+    value.RESOURCEPACK_SKY.1 = 资源包天空 + 光影日月
+    value.RESOURCEPACK_SKY.2 = 资源包天空 + 资源包日月
     value.RESOURCEPACK_SKY.3 = 光影天空 + 资源包日月
 
 screen.Waving_Stuff = 摇晃相关
@@ -528,8 +528,8 @@ option.moon_illuminance.comment = 配置月亮的亮度.
 screen.Direct_Light.comment = 配置和阳光或阴影相关的设置.
 
 screen.Shadows.comment = 根据喜好配置阳光的阴影.
-    option.SCREENSPACE_CONTACT_SHADOWS.comment = §b这啥?§r 这是给远处事物的小部分阴影区域补充, 以及对近处小部分阴影区域添加细节. §a性能消耗水平:§r 低偏中; 在更高分辨率下会消耗更多性能.
-    option.RENDER_ENTITY_SHADOWS.comment =  §b这啥?§r 所有类型实体的阴影, 例如怪物, 箱子, 旗帜, 或者告示牌. §a性能消耗水平:§r 低偏中; 在近处有特别多实体的时候消耗的性能会非常的恐怖.
+    option.SCREENSPACE_CONTACT_SHADOWS.comment = 这是给远处事物的小部分阴影区域补充, 以及对近处小部分阴影区域添加细节. §a性能消耗水平:§r 低偏中; 在更高分辨率下会消耗更多性能.
+    option.RENDER_ENTITY_SHADOWS.comment =  所有类型实体的阴影, 例如怪物, 箱子, 旗帜, 或者告示牌. §a性能消耗水平:§r 低偏中; 在近处有特别多实体的时候消耗的性能会非常的恐怖.
     option.shadowMapResolution.comment = 在太阳照射下从世界上的事物投射出来阴影的质量. §a性能消耗水平:§r 中或更高; 阴影需要从太阳的角度进行第二次 3D 世界的渲染, 这就是为什么它会使性能减半.
     option.shadowDistance.comment = 阴影可渲染的最大距离 (这不是线性距离). 推荐保持默认, 因为接触阴影能解决远处阴影的渲染需求. §a性能消耗水平:§r 中或更高; 如果渲染距离非常大, 阴影的性能开销会很恐怖.
     option.OPTIMIZED_SHADOW_DISTANCE.comment = 仅在围绕以玩家为中心的球体中渲染的阴影, 最大渲染区块由渲染距离进行限制. 无优化选项不会以球体渲染阴影, 且不会被区块限制; 这意味着同样的渲染距离下阴影能覆盖更大的区域. 同样的, 设置为 无优化 时阴影距离不受区块限制.  §a性能消耗水平:§r 低偏中. 优化选项更快, 无优化选项更慢.
@@ -539,16 +539,16 @@ screen.Shadows.comment = 根据喜好配置阳光的阴影.
         option.Variable_Penumbra_Shadows.comment = 该效果使阴影离投射它的地方距离越远越柔和. 用于渲染更高质量的阴影和次表面散射. §a性能消耗水平:§r 低或高.
         option.VPS_Search_Samples.comment = 可变半阴影过滤器质量. §a性能消耗水平:§r 低或高; 拉高本选项数值可以减少次表面散射和其它非常柔和地阴影的噪点.
         option.Max_Shadow_Filter_Radius.comment = 离投射它的地方最大半径时阴影柔和程度达到最大.
-        option.Max_Filter_Depth.comment = 配置太阳大小. 若太阳更大, 阴影越靠近投射它的地方越柔和.
+        option.Max_Filter_Depth.comment = 若太阳越大, 阴影越靠近投射它的地方越柔和.
 
 screen.Ambient_light.comment = 配置和遮蔽处的照明相关的设置.
-    option.AO_Strength.comment = 配置由 SSAO, GTAO, RTAO, 和 SSGI 渲染的环境光遮蔽强度. §b这啥?§r 环境光遮蔽是指在角落区域的小块柔和阴影.
-    option.GI_Strength.comment = 配置由 SSGI 渲染的全局照明强度. §b这啥?§r 在该情况下, 全局照明是指光线从一个表面反弹到其他区域的现象.
+    option.AO_Strength.comment = 配置由 SSAO, GTAO, RTAO, 和 SSGI 渲染的环境光遮蔽强度. 环境光遮蔽是指在角落区域的小块柔和阴影.
+    option.GI_Strength.comment = 配置由 SSGI 渲染的全局照明强度. 在该情况下, 全局照明是指光线从一个表面反弹到其他区域的现象.
     option.HQ_SSGI.comment = 远距屏幕空间全局照明开关. §a性能消耗水平:§r 非常高.
     option.Hand_Held_lights.comment = 动态手持光源 (光影实现) 开关. §a性能消耗水平:§r 非常低.
     option.SKY_CONTRIBUTION_IN_SSRT.comment = 允许 RTAO 或 SSGI 计算考虑整个天空和雾气来在遮蔽处创建高质量照明. 但会带来更多噪点. §a性能消耗水平:§r 中
 
-    option.ambientOcclusionLevel.comment = 配置原版 Minecraft 的环境光遮蔽强度. §b这啥?§r 原版下该环境光遮蔽默认开启, 无关光影是否开启.
+    option.ambientOcclusionLevel.comment = 配置原版 Minecraft 的环境光遮蔽强度. 原版下该环境光遮蔽默认开启, 无关光影是否开启.
     option.ambient_brightness.comment = 配置阴影区域的其他光源照明的亮度.
     option.MIN_LIGHT_AMOUNT.comment = 配置阴影区域的最小照明水平.
     option.indirect_effect.comment = 切换不同类型的间接照明效果使阴影区域渲染质量更好. §a性能消耗水平:§r. 原版 AO: 非常低. SSAO: 低偏中. GTAO: 中偏高. RTAO or SSGI: 高或更高.
@@ -578,20 +578,20 @@ screen.Resource_Pack_Support.comment = 依赖资源包提供信息渲染的一�
         option.Sun_specular_Strength.comment = 配置太阳反射亮度.
         option.reflection_quality.comment = 配置屏幕空间反射质量.
 
-screen.Subsurface_Scattering.comment = §b这啥?§r 打个比方, 次表面散射类似于你把你的手盖住一个很亮的光源, 手掌呈现的那种从内部透光的感觉. 阳光实际上对植物, 衣服, 皮肤或者其它事物照耀都可以产生相同的效果.
+screen.Subsurface_Scattering.comment = 打个比方, 次表面散射类似于你把你的手盖住一个很亮的光源, 手掌呈现的那种从内部透光的感觉. 阳光实际上对植物, 衣服, 皮肤或者其它事物照耀都可以产生相同的效果.
     option.SSS_TYPE.comment = 配置次表面散射如何在世界应用.  §b硬编码:§r 由光影决定. §bLabSSS:§r 由资源包决定. §a性能消耗水平:§r 非常低.
     option.MOB_SSS.comment = 怪物次表面散射开关. 也包含玩家. §a性能消耗水平:§r 非常低.
     option.MISC_BLOCK_SSS.comment = 随机方块的次表面散射开关. 这个一般是指草和沙子. §a性能消耗水平:§r 非常低
-    option.Ambient_SSS.comment = §b这啥?§r 天空光的次表面散射开关, 而不是太阳光. §a性能消耗水平:§r 低偏中; 如果启用了 SSAO , 本选项的性能消耗会很小, 反之如果关闭了会消耗得大.
+    option.Ambient_SSS.comment = 天空光的次表面散射开关, 而不是太阳光. §a性能消耗水平:§r 低偏中; 如果启用了 SSAO , 本选项的性能消耗会很小, 反之如果关闭了会消耗得大.
     option.ambientsss_brightness.comment = 配置天空光次表面散射亮度.
 
-screen.Emissives.comment = §b这啥?§r 自发光亮度是指某方块发光量或自发光强度.
+screen.Emissives.comment = 自发光亮度是指某方块发光量或自发光强度.
     option.Emissive_Brightness.comment = 配置自发光纹理发光亮度.
     option.EMISSIVE_TYPE.comment = 配置自发光纹理如何在世界应用.  §b硬编码:§r 由光影决定. §bLabPBR:§r 由资源包决定. §a性能消耗水平:§r 非常低.
     option.Emissive_Curve.comment = 调整自发光纹理达到最高亮度的容易程度/速度. 1.0 是线性.
 
 screen.POM.comment = 配置由资源包提供信息的视差遮蔽映射的相关设置.
-    option.POM.comment = §b这啥?§r 通过使用资源包中的特殊图像, 在实际没有的区域渲染出 3D 几何图形. 这种效果基本上只向内凹, 所以大角度观察时, 会存在一些伪影. §a性能消耗水平:§r 中偏高.
+    option.POM.comment = 通过使用资源包中的特殊图像, 在实际没有的区域渲染出 3D 几何图形. 这种效果基本上只向内凹, 所以大角度观察时, 会存在一些伪影. §a性能消耗水平:§r 中偏高.
     option.MAX_ITERATIONS.comment = 配置视差效果的质量. 如果近距离仅看到了部分层, 则需要提高本项数值, 不然很难看到. §a性能消耗水平:§r 高.
     option.POM_DEPTH.comment = 视差效果表面凹陷程度. §a性能消耗水平:§r 非常低.
     option.MAX_DIST.comment = 视差效果以镜头为起点开始渲染的最远距离. §a性能消耗水平:§r 高.
@@ -599,18 +599,18 @@ screen.POM.comment = 配置由资源包提供信息的视差遮蔽映射的相�
     option.Horrible_slope_normals.comment = 糟糕的实现, 给视差贴图的两侧提供表面. §a性能消耗水平:§r 低.
 
 screen.Porosity.comment = 配置和湿度, 水坑相关的设置.
-    option.Porosity.comment = §b这啥?§r 孔隙率是对某种材料的多孔性的描述, 也可以说是它容纳水的能力. 例如, 海绵是非常多孔的; 大量吸附水时, 会使它变黑. §a性能消耗水平:§r 低.
+    option.Porosity.comment = 孔隙率是对某种材料的多孔性的描述, 也可以说是它容纳水的能力. 例如, 海绵是非常多孔的; 大量吸附水时, 会使它变黑. §a性能消耗水平:§r 低.
     option.Puddles.comment = 雨天时水坑的开关. §a性能消耗水平:§r 低.
     option.Puddle_Size.comment = 配置水坑大小.
 
 screen.Fog.comment = 配置和光线行进体积雾, 基于距离的雾气相关的设置.
     option.VL_RENDER_RESOLUTION.comment = 配置体积雾分辨率. §a性能消耗水平:§r 高.
     option.VL_SAMPLES.comment = 配置体积雾质量. §a性能消耗水平:§r 高
-    option.BLOOMY_FOG.comment = 配置作用于雾气的泛化强度. §b这啥?§r 本选项的效果使雾气看起来更柔和, 同时有助于隐藏部分噪点. 但可能会导致在细节边缘出现一些明显的闪烁. §a性能消耗水平:§r 非常低.
-    option.Haze_amount.comment = 配置周遭的大气密度. §b这啥?§r 在远处看到的蓝色雾霾.
+    option.BLOOMY_FOG.comment = 配置作用于雾气的泛化强度. 本选项的效果使雾气看起来更柔和, 同时有助于隐藏部分噪点. 但可能会导致在细节边缘出现一些明显的闪烁. §a性能消耗水平:§r 非常低.
+    option.Haze_amount.comment = 配置周遭的大气密度. 在远处看到的蓝色雾霾.
     option.RainFog_amount.comment = 配置雨天时的雾气密度.
     option.RAYMARCH_CLOUDS_WITH_FOG.comment = §c警告§r: 这个设置非常实验性并且实现方式并不好! 需要提高雾气采样值来和正常的云层匹配.  进入云层内或靠近云层周围时, 开启高细节雾气效果. §a性能消耗水平:§r 高.
-    option.BorderFog.comment = §b这啥?§r 雾气开关, 目的是尝试隐藏区块边界. 但因为四周都是天空, 所以很难做好. §a性能消耗水平:§r 非常非常低.
+    option.BorderFog.comment = 雾气开关, 目的是尝试隐藏区块边界. 但因为四周都是天空, 所以很难做好. §a性能消耗水平:§r 非常非常低.
 
     screen.TOD_fog.comment = 配置一天中特定时间出现的雾气的密度.
         option.TOD_Fog_mult.comment = 配置一天中特定时间出现的总体雾气量. 本选项不影响大气雾霾密度.
@@ -623,8 +623,8 @@ screen.Clouds.comment = 配置和光线步进体积云相关的设置.
     option.VOLUMETRIC_CLOUDS.comment = 云层开关. §a性能消耗水平:§r 中偏高.
     option.CLOUDS_QUALITY.comment = 配置体积云分辨率. §a性能消耗水平:§r 高.
     option.CLOUDS_SHADOWS.comment = 从云层或雾气投射到地面的阴影的开关. §a性能消耗水平:§r 低偏中.
-    option.Daily_Weather.comment = 每日天气功能开关. §b这啥?§r 10 种天气预设, 每天光影会循环启用它们. 启用本选项后, 不能改变任何云层覆盖率设置. §a性能消耗水平:§r 低.
-    option.CHOOSE_RANDOM_WEATHER_PROFILE.comment = §b这啥?§r 开启后光影每日从以下天气配置中随机选择天气渲染. 选项关闭时, 光影会按顺序循环天气.
+    option.Daily_Weather.comment = 每日天气功能开关. 10 种天气预设, 每天光影会循环启用它们. 启用本选项后, 不能改变任何云层覆盖率设置. §a性能消耗水平:§r 低.
+    option.CHOOSE_RANDOM_WEATHER_PROFILE.comment = 开启后光影每日从以下天气配置中随机选择天气渲染. 选项关闭时, 光影会按顺序循环天气.
     option.Cloud_Speed.comment = 配置日常时间云层的移动速度.
     option.Rain_coverage.comment = 配置雨天时云层的覆盖率.
 
@@ -635,7 +635,7 @@ screen.World.comment = 配置多种会在主世界发生的效果, 从摇摆植�
         option.SSR_STEPS.comment = 配置半透明方块的屏幕空间反射质量.  §a性能消耗水平:§r 中偏高.
         option.WATER_SUN_SPECULAR.comment = 半透明方块的日月反射开关. §a性能消耗水平:§r 低.
         option.WATER_BACKGROUND_SPECULAR.comment = 半透明方块的天空和雾气反射开关. §a性能消耗水平:§r 低偏中.
-        option.Refraction.comment = 半透明折射开关. §b这啥?§r 如果你观察水体, 可以看到光的折射会扭曲了水中的内容. §a性能消耗水平:§r 低.
+        option.Refraction.comment = 半透明折射开关. 如果你观察水体, 可以看到光的折射会扭曲了水中的内容. §a性能消耗水平:§r 低.
         option.Dirt_Amount.comment = 配置水中污物含量. 这可以控制水雾量.
         option.Water_Top_Layer.comment = 配置海平面在世界中的 Y 坐标.
 
@@ -677,9 +677,9 @@ screen.Post_Processing.comment = 配置所有后处理效果设置, 从抗锯齿
     screen.DepthOfField.comment = 配置和景深相关的设置.
     screen.Purkinje_effect.comment = 配置和柏金赫现象相关的设置. 柏金赫现象: 人类眼睛对高度照明灵敏，而在低照明水平时，往光谱高频蓝端迁移的现象 (来源于百度百科).
     option.SHARPENING.comment = 配置对比度自适应锐化作用于图像的强度. 本选项可以有效带出因抗锯齿和升分辨率产生的细节损失.
-    option.BLOOM_STRENGTH.comment = 配置作用于图像的泛光强度. §b这啥?§r 泛光是指柔和所有发光事物的效果, 用来描述某物是否明亮.
+    option.BLOOM_STRENGTH.comment = 配置作用于图像的泛光强度. 泛光是指柔和所有发光事物的效果, 用来描述某物是否明亮.
     screen.TAA_OPTIONS.comment = 配置和抗锯齿相关的设置.
-        option.SCREENSHOT_MODE.comment = 开启帧数积累以获得少噪点高质量的图像. §b这啥?§r 将已发生的帧叠加到生成的下一帧上, 类似于长曝光图像.
+        option.SCREENSHOT_MODE.comment = 开启帧数积累以获得少噪点高质量的图像. 将已发生的帧叠加到生成的下一帧上, 类似于长曝光图像.
         option.TAA.comment = 时间性抗锯齿 (TAA) 开关. 这可以去除大部分内容的锯齿状边缘, 软化图像, 并有助于去除许多效果产生的噪点. 但会导致拖影, 因为它使用过去的帧来获取世界额外信息. §a性能消耗水平:§r 低.
         option.BLEND_FACTOR.comment = 配置历史帧使用比重. 更高的数值意味着依赖更少的历史帧, 所以可能会看起来很闪烁和多噪点. 较低的数值意味着依赖更多的历史帧, 所以可能会看起来更少噪点但是更多拖影和显得有点脏.
         option.TAA_UPSCALING.comment = 时间性升分辨率. 升分辨率时, 可以从低分辨率的图像中保留大多数质量. 因此与常规升分辨率相比, 可以开启一个看起来很高的分辨率的同时也能有更好的性能.
@@ -693,10 +693,10 @@ option.SKY_GROUND = 地天
 
 option.MATERIAL_AO.comment = 开关基于资源包提供的内容应用环境光遮蔽的功能. §a性能消耗水平:§r 非常低.
 option.WATER_WAVE_STRENGTH.comment = 配置出现的水波强度.
-option.MOONPHASE_BASED_MOONLIGHT.comment = §b这啥?§r 每晚月亮有不同的照度. 此选项根据月相来调整发出的月光亮度. §a性能消耗水平:§r 近乎于无.
+option.MOONPHASE_BASED_MOONLIGHT.comment = 每晚月亮有不同的照度. 此选项根据月相来调整发出的月光亮度. §a性能消耗水平:§r 近乎于无.
 
-option.END_STORM_DENSTIY.comment =  §b这啥?§r 这是末地的一层暗色云雾. 配置末地风暴的密度.
-option.NETHER_PLUME_DENSITY.comment =  §b这啥?§r 这是下界中那些浓密的发光烟柱. 配置下界烟柱的密度.
+option.END_STORM_DENSTIY.comment =  这是末地的一层暗色云雾. 配置末地风暴的密度.
+option.NETHER_PLUME_DENSITY.comment =  这是下界中那些浓密的发光烟柱. 配置下界烟柱的密度.
 
 option.CloudLayer0.comment          = 较小积云层的开关. §a性能消耗水平:§r 中.
 option.CloudLayer0_coverage.comment = 配置云覆盖天空的程度.
@@ -713,9 +713,9 @@ option.CloudLayer2_coverage.comment = 配置云覆盖天空的程度.
 option.CloudLayer2_density.comment  = 配置云层的密度或者说厚度.
 option.CloudLayer2_height.comment   = 配置云层飘浮处的高度. §c不能低于大积云层§r
 
-option.SKY_GROUND.comment = §b这啥?§r 天空的暗色下半部分, 若 Minecraft 有无限渲染距离, 则这是地面. §a性能消耗水平:§r 非常非常低. §c由于额外的函数计算, 禁用本选项会比启用消耗消耗更多性能.§r
-option.SNELLS_WINDOW.comment = §b这啥?§r 这是在水下看到的黑色反射圆圈. 这是对现实水下会发生的情况的模拟, 称为 "全内反射". §a性能消耗水平:§r 非常非常非常低.
-option.entityShadowDistanceMul.comment = §b这啥?§r 配置实体阴影的生效距离. 如果想保留实体阴影开启又想提高有巨量实体的区域的性能, 本选项会十分有用.
+option.SKY_GROUND.comment = 天空的暗色下半部分, 若 Minecraft 有无限渲染距离, 则这是地面. §a性能消耗水平:§r 非常非常低. §c由于额外的函数计算, 禁用本选项会比启用消耗消耗更多性能.§r
+option.SNELLS_WINDOW.comment = 这是在水下看到的黑色反射圆圈. 这是对现实水下会发生的情况的模拟, 称为 "全内反射". §a性能消耗水平:§r 非常非常非常低.
+option.entityShadowDistanceMul.comment = 配置实体阴影的生效距离. 如果想保留实体阴影开启又想提高有巨量实体的区域的性能, 本选项会十分有用.
 
 screen.DISTANT_HORIZONS_SETTINGS = Distant Horizons - §c依赖 IRIS§r
 option.DH_OVERDRAW_PREVENTION = 防止过度绘制
@@ -746,7 +746,7 @@ option.DISTANT_HORIZONS_SHADOWMAP.comment =  §c此选项会降低性能, 会使
 option.TOGGLE_VL_FOG = 体积雾
 option.TOGGLE_VL_FOG.comment = 一个快速关闭所有雾气的开关.
 
-option.TRANSLUCENT_COLORED_SHADOWS.comment = §b这啥?§r 本选项的效果可以使像染色玻璃这样的半透明方块对穿过的光线染色. §a性能消耗水平:§r 中.
+option.TRANSLUCENT_COLORED_SHADOWS.comment = 本选项的效果可以使像染色玻璃这样的半透明方块对穿过的光线染色. §a性能消耗水平:§r 中.
 
 #Additional Options / 附加选项
 #Direct Light

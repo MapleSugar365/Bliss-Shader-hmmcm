@@ -1,12 +1,12 @@
 #define ffstep(x,y) clamp((y - x) * 1e35,0.0,1.0)
 
 vec3 drawSun(float cosY, float sunInt,vec3 nsunlight,vec3 inColor){
-	return inColor+nsunlight/0.0008821203*pow(smoothstep(cos(0.0093084168595*3.2),cos(0.0093084168595*1.8),cosY),3.)*0.62;
+	return inColor+nsunlight/0.0008821203*pow(smoothstep(cos(0.0093084168595*6.4),cos(0.0093084168595*3.2),cosY),3.)*0.62;
 }
 
 vec3 drawMoon(vec3 PlayerPos, vec3 WorldSunVec, vec3 Color, inout vec3 occludeStars){
 
-	float Shape = clamp((exp(1 + -1000 * dot(WorldSunVec+PlayerPos,PlayerPos)) - 1.5),0.0,25.0);
+	float Shape = clamp((exp(1 + -500 * dot(WorldSunVec+PlayerPos,PlayerPos)) - 1.0),0.0,25.0);
 	occludeStars *= max(1.0-Shape*5,0.0);
 
 	float shape2 = pow(exp(Shape * -10),0.15) * 255.0;
