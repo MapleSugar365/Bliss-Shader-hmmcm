@@ -642,7 +642,7 @@ const vec3 aerochrome_color = mix(vec3(1.0, 0.0, 0.0), vec3(0.715, 0.303, 0.631)
 // ----- END RELATED SETTINGS ----- //
 //////////////////////////////////////
 
-#define END_STORM_DENSTIY 1.0 // [0 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0]
+#define END_STORM_DENSTIY 0.05 // [0 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0]
 
 // #define DEBUG_endfog
 // #define THE_ORB
@@ -745,7 +745,7 @@ const vec3 aerochrome_color = mix(vec3(1.0, 0.0, 0.0), vec3(0.715, 0.303, 0.631)
 #define LPV_REDSTONE_LIGHTS
 #define LPV_COLORED_CANDLES
 #define LPV_VL_FOG_ILLUMINATION
-#define LPV_VL_FOG_ILLUMINATION_BRIGHTNESS 100 // [0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 105 110 115 120 125 130 135 140 145 150 155 160 165 170 175 180 185 190 195 200]
+#define LPV_VL_FOG_ILLUMINATION_BRIGHTNESS 20 // [0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100]
 
 // Fix for making nether/end work until next Iris release to fix shadow matrices
 //#define LPV_NOSHADOW_HACK
