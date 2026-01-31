@@ -1,7 +1,8 @@
 #define ffstep(x,y) clamp((y - x) * 1e35,0.0,1.0)
 
-vec3 drawSun(float cosY, float sunInt,vec3 nsunlight,vec3 inColor){
-	return inColor+nsunlight/0.0008821203*pow(smoothstep(cos(0.0093084168595*6.4),cos(0.0093084168595*3.2),cosY),3.)*0.62;
+vec3 drawSun(float cosY, float sunInt, vec3 nsunlight, vec3 inColor, float sunHeight){
+    float noonFactor = mix(0.01, 0.0008, pow(clamp(sunHeight, 0.0, 1.0), 0.5));
+    return inColor + nsunlight/noonFactor * pow(smoothstep(cos(0.0093084168595*6.4), cos(0.0093084168595*3.2), cosY), 3.) * 0.62;
 }
 
 vec3 drawMoon(vec3 PlayerPos, vec3 WorldSunVec, vec3 Color, inout vec3 occludeStars){
