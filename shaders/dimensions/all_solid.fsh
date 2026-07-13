@@ -75,6 +75,9 @@ uniform mat4 gbufferProjection;
 uniform mat4 gbufferModelViewInverse;
 uniform vec3 cameraPosition;
 uniform float rainStrength;
+#ifdef IS_IRIS
+uniform int biome_precipitation;
+#endif
 uniform sampler2D noisetex;//depth
 uniform sampler2D depthtex0;
 
@@ -335,11 +338,16 @@ void main() {
 	float Puddle_shape = 0.0;
 	
 	#if defined Puddles && defined WORLD && !defined ENTITIES && !defined HAND
-		rainfall = rainStrength * noPuddleAreas * lightmap;
+		#ifdef IS_IRIS
+			float effectiveRainStrength = rainStrength * float(biome_precipitation != PPT_SNOW);
+		#else
+			float effectiveRainStrength = rainStrength;
+		#endif
+		rainfall = effectiveRainStrength * noPuddleAreas * lightmap;
 
 		Puddle_shape = clamp(lightmap - exp(-15.0 * pow(texture2D(noisetex, worldpos.xz * (0.020 * Puddle_Size)	).b,5.0)),0.0,1.0);
 		Puddle_shape *= clamp( viewToWorld(normal).y*0.5+0.5,0.0,1.0);
-		Puddle_shape *= rainStrength * noPuddleAreas ;
+		Puddle_shape *= effectiveRainStrength * noPuddleAreas ;
 
 	#endif
 
